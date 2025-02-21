@@ -10,7 +10,6 @@ docker run -it --rm `
 fastq-dump --split-files --gzip SRR8618307
 
 
-
 # Omicverse TCGA Database preprocessing script
 
 ## TCGA counts read
