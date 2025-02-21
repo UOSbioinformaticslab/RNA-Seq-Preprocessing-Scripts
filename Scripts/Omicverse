@@ -1,15 +1,3 @@
-# GTEX_RNASeq preprocessing scripts
-
-## Conversion of BAM to FASTQ
-docker run -it --rm `
--v D:gtex-rnaseq/inputs:/data
--t broadinstitute/gtex_rnaseq \
-    /bin/bash -c "/src/run_SamToFastq.py /data/$input_bam -p ${sample_id} -o /data"
-
-## Convert to .fastq
-fastq-dump --split-files --gzip SRR8618307
-
-
 # Omicverse TCGA Database preprocessing script
 
 ## TCGA counts read

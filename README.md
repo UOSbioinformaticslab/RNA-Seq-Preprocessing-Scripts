@@ -18,7 +18,7 @@ This repository offers multiple scripts for cleaning, transforming, and preparin
     ```
 2. **Navigate to the directory:**
     ```
-    cd Preprocessing Scripts
+    cd Scripts
     ```
 3. **Install required dependencies:**  
     Check each script for its specific dependencies and installation instructions.
