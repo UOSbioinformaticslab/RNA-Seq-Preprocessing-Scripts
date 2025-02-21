@@ -1,10 +1,41 @@
 # GTEX_RNASeq preprocessing scripts
 
-# Conversion of BAM to FASTQ
+## Conversion of BAM to FASTQ
 docker run -it --rm `
 -v D:gtex-rnaseq/inputs:/data
 -t broadinstitute/gtex_rnaseq \
     /bin/bash -c "/src/run_SamToFastq.py /data/$input_bam -p ${sample_id} -o /data"
 
-# Convert to .fastq
+## Convert to .fastq
 fastq-dump --split-files --gzip SRR8618307
+
+
+
+# Omicverse TCGA Database preprocessing script
+
+## TCGA counts read
+%%time
+gdc_sample_sheep='data/TCGA_OV/gdc_sample_sheet.2024-07-05.tsv'
+gdc_download_files='data/TCGA_OV/gdc_download_20240705_180129.081531'
+clinical_cart='data/TCGA_OV/clinical.cart.2024-07-05'
+aml_tcga=ov.bulk.pyTCGA(gdc_sample_sheep,gdc_download_files,clinical_cart)
+aml_tcga.adata_init()
+
+aml_tcga.adata.write_h5ad('data/TCGA_OV/ov_tcga_raw.h5ad',compression='gzip')
+
+## Meta init
+aml_tcga.adata_meta_init()
+
+## Survial init
+aml_tcga.survial_init()
+aml_tcga.adata
+
+### Visualising gene of interest using survival_analysis
+aml_tcga.survival_analysis('MYC',layer='deseq_normalize',plot=True)
+
+### Visualising all genes using survival_analysis_all
+aml_tcga.survial_analysis_all()
+aml_tcga.adata
+
+### Save results
+aml_tcga.adata.write_h5ad('data/TCGA_OV/ov_tcga_survial_all.h5ad',compression='gzip')
