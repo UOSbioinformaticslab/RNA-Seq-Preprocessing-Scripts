@@ -1,6 +1,38 @@
+# ===============================================================
+# TCGA Database Preprocessing Script Documentation
+#
+# This script preprocesses TCGA ovarian cancer data from the OMICverse
+# repository. The workflow consists of several steps:
+#
+# 1. TCGA Counts Read:
+#    - Define input file paths for the TCGA sample sheet, the download log,
+#      and the clinical cart data.
+#    - Create a TCGA analysis object using the provided files.
+#    - Initialize the AnnData structure to store count data.
+#    - Write the raw AnnData object to an H5AD file with gzip compression.
+#
+# 2. Metadata Initialization:
+#    - Initialize additional metadata for the AnnData object.
+#
+# 3. Survival Analysis:
+#    - Run initial survival analysis routines, particularly initializing
+#      survival parameters in the dataset.
+#    - Perform survival analysis for a specific gene of interest ("MYC")
+#      using the 'deseq_normalize' data layer and display a plot.
+#
+# 4. Global Survival Analysis:
+#    - Execute survival analysis for all genes present in the dataset.
+#
+# 5. Save Results:
+#    - Write the modified AnnData object, now containing survival analysis
+#      information, to an H5AD file using gzip compression.
+#
+# This documentation explains the purpose and workflow of each step in the 
+# preprocessing script without reproducing the actual code.
+# ===============================================================
 # Omicverse TCGA Database preprocessing script
 
-## TCGA counts read
+## TCGA counts read (With Examples)
 %%time
 gdc_sample_sheep='data/TCGA_OV/gdc_sample_sheet.2024-07-05.tsv'
 gdc_download_files='data/TCGA_OV/gdc_download_20240705_180129.081531'
